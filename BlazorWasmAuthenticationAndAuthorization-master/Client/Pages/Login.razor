@@ -1,0 +1,50 @@
+﻿@page "/login"
+@using BlazorWasmAuthenticationAndAuthorization.Client.Authentication
+@using BlazorWasmAuthenticationAndAuthorization.Shared
+@using System.Net
+@inject HttpClient httpClient
+@inject IJSRuntime js
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3 pt-2 pb-6  border panel-body" style="background:##b09d9d12; margin-top:10%">
+        <div class="mb-3 text-center">
+            <h3>LOGIN</h3>
+        </div>
+        <div class="mb-3">
+            <input @bind="loginRequest.UserName" class="form-control" placeholder="User Name" />
+            <i class="fa fa-user"></i>
+
+        </div>
+        <div class="mb-3">
+            <input @bind="loginRequest.Password" type="password" class="form-control" placeholder="Password" />
+            <i class="fa fa-lock"></i>
+        </div>
+        <div class="mb-3 d-grid gap-2">
+            <button @onclick="Authenticate" class="btn btn-primary">Login</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginRequest loginRequest = new LoginRequest();
+
+    private async Task Authenticate()
+    {
+        var loginResponse = await httpClient.PostAsJsonAsync<LoginRequest>("/api/Account/Login", loginRequest);
+
+        if (loginResponse.IsSuccessStatusCode)
+        {
+            var userSession = await loginResponse.Content.ReadFromJsonAsync<UserSession>();
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+            await customAuthStateProvider.UpdateAuthenticationState(userSession);
+            navManager.NavigateTo("/", true);
+        }
+        else if (loginResponse.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            await js.InvokeVoidAsync("alert", "Invalid User Name or Password");
+            return;
+        }
+    }
+}

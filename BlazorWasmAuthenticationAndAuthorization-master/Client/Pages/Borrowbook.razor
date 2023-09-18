@@ -1,0 +1,94 @@
+﻿@page "/fetchBorrowbook"
+@inherits BorrowbookBase
+
+<h1>Borrow book Data</h1>
+@*<p>This component demonstrates CRUD operation on Employee data</p>
+*@
+<div class="row">
+    <div class="col-md-6">
+        <a href='/borrowbook/add' class="btn btn-primary" role="button">
+            <i class="fas fa-user-plus"></i>
+            New Borrow book
+        </a>
+        <a href='/fetchBorrowbookhistory' class="btn btn-primary" role="button" style="margin-left:8px">
+            <i class="fas fa-user-plus"></i>
+            New Borrow book History
+        </a>
+    </div>
+
+    <div class="input-group col">
+        
+        <input type="text" class="form-control" placeholder="Search Book by (Borrower Name)"
+               @bind="SearchString" @bind:event="oninput" @onkeyup="FilterBook" />
+        @if (SearchString.Length > 0)
+        {
+            <div class="input-group-append">
+                <button class="btn btn-danger" @onclick="ResetSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+@if (borrowbooksList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped align-middle table-bordered">
+        <thead class="table-success">
+            <tr>
+
+                <th>Book Name</th>
+                <th>Borrower Name</th>
+                <th>National ID</th>
+                <th>borrow Date</th>
+                <th>Return Date</th>
+                <th>Number of days</th>
+
+                <th>Price</th>
+
+                <th>Actions</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in borrowbooksList)
+            {
+                <tr>
+
+                    <td>@item.BookName</td>
+                    <td>@item.Borrowername</td>
+                    <td>@item.NationalID</td>
+                    <td>@item.borrowDatestring</td>
+                    <td>@item.Returndatestring</td>
+                    <td>@item.DayNo</td>
+
+                    <td>@item.Price</td>
+
+
+                    <td>
+                        <a href='/borrowbook/edit/@item.BorrowbookID' class="btn btn-outline-dark" role="button">
+                            Edit
+                        </a>
+                        <a href='/borrowbook/recive/@item.BorrowbookID' class="btn btn-outline-dark" role="button">
+                            Recive
+                        </a>
+                        <a href='/borrowbook/cancel/@item.BorrowbookID' class="btn btn-outline-dark" role="button">
+                            Cancel
+                        </a>
+
+                    </td>
+
+                  
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

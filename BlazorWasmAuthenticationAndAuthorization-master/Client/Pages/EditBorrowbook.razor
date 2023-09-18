@@ -1,0 +1,67 @@
+﻿@page "/borrowbook/edit/{borrowbookID:int}"
+
+
+@inherits EditBorrowbookBase
+
+<h1>@Title Borrow books</h1>
+<hr />
+
+<EditForm Model="@borrowbook" OnValidSubmit="SaveBorrowbooks">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="BookName" class="form-label">Book Name</label>
+        <div class="col-md-4">
+            <InputSelect class="form-control" @bind-Value="borrowbook.BookID" readonly>
+                <option value="-- Select Book --">-- Select Book --</option>
+                @foreach (var cat in bookList)
+                {
+                    <option value="@cat.BookID" readonly>@cat.BookName</option>
+
+                }
+            </InputSelect>
+
+        </div>
+
+        <ValidationMessage For="@(() => borrowbook.BookID)" />
+    </div>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Borrower name</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="borrowbook.Borrowername" />
+        </div>
+        <ValidationMessage For="@(() => borrowbook.Borrowername)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="NationalID" class="form-label">National ID</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="borrowbook.NationalID" />
+        </div>
+        <ValidationMessage For="@(() => borrowbook.NationalID)" />
+    </div>
+    <div class="mb-3">
+        <label for="Price" class="form-label">Price</label>
+        <div class="col-md-4">
+            <InputNumber class="form-control" @bind-Value="borrowbook.Price" />
+        </div>
+        <ValidationMessage For="@(() => borrowbook.Price)" />
+    </div>
+    @*  <div class="mb-3">
+    <label for="borrowDatestring" class="form-label">borrow Date</label>
+    <div class="col-md-4">
+    <InputDate class="form-control" @bind-Value="borrowbook.borrowDate" />
+    </div>
+    <ValidationMessage For="@(() => borrowbook.borrowDate)" />
+    </div>*@
+    <div class="mb-3">
+        <label for="ReturnDatestring" class="form-label">Return Date</label>
+        <div class="col-md-4">
+            <InputDate class="form-control" @bind-Value="borrowbook.Returndate" />
+        </div>
+        <ValidationMessage For="@(() => borrowbook.Returndate)" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-light" @onclick="Cancel">Cancel</button>
+    </div>
+</EditForm>

@@ -1,0 +1,71 @@
+﻿@page "/fetchBorrowbookhistory"
+@inherits HistoryBorrowbookBase
+
+<h1>Borrow book Data</h1>
+@*<p>This component demonstrates CRUD operation on Employee data</p>
+*@
+<div class="row">
+  
+    <div class="input-group col">
+        <input type="text" class="form-control" placeholder="Search Book by (Borrower Name)"
+               @bind="SearchString" @bind:event="oninput" @onkeyup="FilterBook" />
+        @if (SearchString.Length > 0)
+        {
+            <div class="input-group-append">
+                <button class="btn btn-danger" @onclick="ResetSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+@if (borrowbooksList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped align-middle table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>Book Name</th>
+                <th>Borrower Name</th>
+                <th>National ID</th>
+                <th>borrow Date</th>
+                <th>Return Date</th>
+                <th>Number of days</th>
+                <th>Recive Date</th>
+
+                <th>Price</th>
+                <th>Status</th>
+                <th>Cansel Reasion</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in borrowbooksList)
+            {
+                <tr>
+
+                    <td>@item.BookName</td>
+                    <td>@item.Borrowername</td>
+                    <td>@item.NationalID</td>
+                    <td>@item.borrowDatestring</td>
+                    <td>@item.Returndatestring</td>
+                    <td>@item.DayNo</td>
+                    <td>@item.ReciveDateString</td>
+                    <td>@item.Price</td>
+                    <td>@item.Status</td>
+
+
+                    <td>@item.CancelReason</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

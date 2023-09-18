@@ -1,0 +1,74 @@
+﻿@page "/borrowbook/recive/{borrowbookID:int}"
+
+
+@inherits ReciveBorrowbookBase
+
+<h1>@Title Borrow books</h1>
+<hr />
+
+<EditForm Model="@borrowbook" OnValidSubmit="SaveBorrowbooks">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+               <label for="BookName" class="form-label">Book Name</label>
+                <InputText class="form-control" @bind-Value="borrowbook.BookName" readonly />
+            </div>
+            <ValidationMessage For="@(() => borrowbook.BookName)" />
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Name" class="form-label">Borrower name</label>
+
+                <InputText class="form-control" @bind-Value="borrowbook.Borrowername" readonly />
+            </div>
+            <ValidationMessage For="@(() => borrowbook.Borrowername)" />
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="NationalID" class="form-label">National ID</label>
+
+                <InputText class="form-control" @bind-Value="borrowbook.NationalID" readonly />
+            </div>
+            <ValidationMessage For="@(() => borrowbook.NationalID)" />
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Price" class="form-label">Price</label>
+
+                <InputNumber class="form-control" @bind-Value="borrowbook.Price" readonly />
+            </div>
+            <ValidationMessage For="@(() => borrowbook.Price)" />
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="borrowDatestring" class="form-label">borrow Date</label>
+
+                <InputDate class="form-control" @bind-Value="borrowbook.borrowDate" readonly />
+            </div>
+            <ValidationMessage For="@(() => borrowbook.borrowDate)" />
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ReturnDatestring" class="form-label">Return Date</label>
+
+                <InputDate class="form-control" @bind-Value="borrowbook.Returndate" readonly />
+            </div>
+            <ValidationMessage For="@(() => borrowbook.Returndate)" />
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Delaypenalty" class="form-label">Delay penalty Till Now(Pound)</label>
+
+                <InputNumber class="form-control" @bind-Value="borrowbook.Delaypenalty" readonly />
+            </div>
+            <ValidationMessage For="@(() => borrowbook.Delaypenalty)" />
+        </div>
+    </div>
+ 
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary me-2" style="margin-top:20px">Save</button>
+        <button class="btn btn-light me-2" @onclick="Cancel" style="margin-top:20px">Cancel</button>
+    </div>
+</EditForm>

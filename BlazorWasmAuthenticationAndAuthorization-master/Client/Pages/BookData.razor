@@ -1,0 +1,96 @@
+﻿@page "/fetchbook"
+@*@attribute [Authorize(Roles = "Administrator,User")]
+@using BlazorCrud.Client.Authentication
+@using BlazorCrud.Shared;
+@using Microsoft.AspNetCore.Components.Authorization
+@inject HttpClient httpClient
+@inject IJSRuntime js
+@inject AuthenticationStateProvider authenticationStateProvider
+
+@inject NavigationManager navManager*@
+@using GemBox.Pdf
+@using GemBox.Pdf.Content
+@using static System.Net.WebRequestMethods
+@inject IJSRuntime js
+
+@inherits BookDataBase
+
+<h1>Book Data</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <a href='/book/add' class="btn btn-primary" role="button">
+            <i class="fas fa-user-plus"></i>
+            Add Book
+        </a>
+    </div>
+    <div class="input-group col">
+        <input type="text" class="form-control" placeholder="Search Book by (Book , Author , Category)"
+               @bind="SearchString" @bind:event="oninput" @onkeyup="FilterBook" />
+        @if (SearchString.Length > 0)
+        {
+            <div class="input-group-append">
+                <button class="btn btn-danger" @onclick="ResetSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+@if (bookList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped align-middle table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Descripation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in bookList)
+            {
+                <tr>
+                    <td>@emp.BookName</td>
+                    <td>@emp.Author</td>
+                    <td>@emp.Category</td>
+                    <td>@emp.BookDescribation</td>
+                    <td>
+                        <a href='/book/edit/@emp.BookID' class="btn btn-outline-dark" role="button">
+                            Edit
+                        </a>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEmpModal"
+                        @onclick="(() => DeleteBook2(emp.BookID))">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+}
+
+@code {
+
+    private async Task DeleteBook2(int id)
+    {
+        await DeleteBook(id);
+        return;
+
+    }
+ 
+
+
+
+}

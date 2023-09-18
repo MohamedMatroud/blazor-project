@@ -1,0 +1,53 @@
+﻿@page "/book/add"
+@page "/book/edit/{bookID:int}"
+@*@attribute [Authorize(Roles = "Administrator,User")]*@
+@inherits AddEditBookBase
+
+<h1>@Title Book</h1>
+<hr />
+
+<EditForm Model="@book" OnValidSubmit="SaveBook">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="book.BookName" />
+        </div>
+        <ValidationMessage For="@(() => book.BookName)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Author" class="form-label">Author</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="book.Author" />
+        </div>
+        <ValidationMessage For="@(() => book.Author)" />
+    </div>
+    <div class="mb-3">
+        <label for="CategoryID" class="form-label">Category</label>
+        <div class="col-md-4">
+            <InputSelect class="form-control" @bind-Value="book.CategoryID">
+                <option value="-- Select Category --">-- Select Category --</option>
+                @foreach (var cat in categoryList)
+                {
+                    <option value="@cat.CategoryId">@cat.CategoryName</option>
+
+                }
+            </InputSelect>
+           
+        </div>
+
+        <ValidationMessage For="@(() => book.CategoryID)" />
+    </div>
+    <div class="mb-3">
+        <label for="BookDescribation" class="form-label">Book Describation</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="book.BookDescribation" />
+        </div>
+        <ValidationMessage For="@(() => book.BookDescribation)" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-light" @onclick="Cancel">Cancel</button>
+    </div>
+</EditForm>

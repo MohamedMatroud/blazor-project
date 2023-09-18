@@ -1,0 +1,26 @@
+﻿@page "/borrowbook/cancel/{borrowbookID:int}"
+
+
+@inherits CancelBorrowbookBase
+
+<h1>@Title Borrow books</h1>
+<hr />
+
+<EditForm Model="@borrowbook" OnValidSubmit="SaveBorrowbooks">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="CancelReason" class="form-label">Cancel Reason</label>
+                <InputTextArea @bind-Value="borrowbook.CancelReason" class="form-control" rows="8"></InputTextArea>
+            </div>
+            <ValidationMessage For="@(() => borrowbook.CancelReason)" />
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary me-2" style="margin-top:20px">Save</button>
+        <button class="btn btn-light me-2" @onclick="Cancel" style="margin-top:20px">Cancel</button>
+    </div>
+</EditForm>

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Append.Blazor.Printing" Version="6.2.0" />
+    <PackageReference Include="Blazored.SessionStorage" Version="2.2.0" />
+    <PackageReference Include="GemBox.Pdf" Version="17.0.1404" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="23.1.36" />
+    <PackageReference Include="Syncfusion.Blazor.SplitButtons" Version="23.1.36" />
+    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\BlazorWasmAuthenticationAndAuthorization.Shared.csproj" />
+
+	  <PackageReference Include="HarfBuzzSharp.NativeAssets.WebAssembly" Version="2.8.2.3" />
+	  <NativeFileReference Include="$(HarfBuzzSharpStaticLibraryPath)\3.1.12\*.a" />
+	  <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" Version="2.88.3" />
+	  <NativeFileReference Include="$(SkiaSharpStaticLibraryPath)\3.1.12\*.a" />
+  </ItemGroup>
+
+</Project>
